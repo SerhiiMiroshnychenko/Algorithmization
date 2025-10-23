@@ -6,41 +6,44 @@
 import math
 
 def calculate_variant5(x):
-    """Обчислення функції варіанту 5"""
+    """Обчислення функції варіанту 5 з використанням match-case"""
     t = 1e-9
     
-    # Перевірка чи x у невизначеному інтервалі [2; 2.2)
-    if (2 - t) <= x < (2.2 - t):
-        return "Функція не визначена на інтервалі [2; 2.2)"
-    
-    # Інтервал 1: x < -2
-    if x < (-2 + t):
-        # Перевірка sin(x) != 0 для котангенса
-        if abs(math.sin(x)) > t:
-            cotangent = math.cos(x) / math.sin(x)
-            y = cotangent - math.exp(x * x)
-            return f"x = {x}, y1 = {y:.6f}"
-        else:
-            return "Порушено ОДЗ: sin(x) = 0, котангенс не визначений"
-    
-    # Інтервал 2: -2 < x <= 0
-    elif (-2 + t) < x <= t:
-        # cos(x) - 1.1 завжди != 0, оскільки -1 <= cos(x) <= 1
-        denominator = math.cos(x) - 1.1
-        y = 3 / denominator
-        return f"x = {x}, y2 = {y:.6f}"
-    
-    # Інтервал 3: 0 < x < 2
-    elif t < x < (2 - t):
-        y = (x ** 5) * math.sin(x) + 0.5
-        return f"x = {x}, y3 = {y:.6f}"
-    
-    # Інтервал 4: x >= 2.2
-    elif x >= (2.2 - t):
-        radicand = math.cos(x) ** 2
-        # Кубічний корінь завжди визначений
-        y = radicand ** (1.0 / 3.0)
-        return f"x = {x}, y4 = {y:.6f}"
+    # Використання match-case для визначення інтервалу
+    match x:
+        case _ if 2 <= x < 2.2:
+            # Невизначений інтервал [2; 2.2)
+            return "Функція не визначена на інтервалі [2; 2.2)"
+        
+        case _ if x < -2:
+            # Інтервал 1: x < -2
+            # Перевірка sin(x) != 0 для котангенса
+            if abs(math.sin(x)) > t:
+                cotangent = math.cos(x) / math.sin(x)
+                y = cotangent - math.exp(x * x)
+                return f"x = {x}, y1 = {y:.6f}"
+            else:
+                return "Порушено ОДЗ: sin(x) = 0, котангенс не визначений"
+        
+        case _ if -2 < x <= 0:
+            # Інтервал 2: -2 < x <= 0
+            # cos(x) - 1.1 завжди != 0, оскільки -1 <= cos(x) <= 1
+            denominator = math.cos(x) - 1.1
+            y = 3 / denominator
+            return f"x = {x}, y2 = {y:.6f}"
+        
+        case _ if 0 < x < 2:
+            # Інтервал 3: 0 < x < 2
+            y = (x ** 5) * math.sin(x) + 0.5
+            return f"x = {x}, y3 = {y:.6f}"
+        
+        case _ if x >= 2.2:
+            # Інтервал 4: x >= 2.2
+            radicand = math.cos(x) ** 2
+            # Кубічний корінь завжди визначений
+            y = radicand ** (1.0 / 3.0)
+            return f"x = {x}, y4 = {y:.6f}"
+    return None
 
 
 # Тестові випадки з звіту

@@ -10,21 +10,21 @@ def calculate_variant4(x):
     t = 1e-9
     
     # Перевірка чи x у невизначеному інтервалі [1.4; 1.7]
-    if (1.4 - t) < x < (1.7 + t):
+    if 1.4 < x < 1.7:
         return "Функція не визначена на інтервалі [1.4; 1.7]"
     
     # Інтервал 1: x <= 0
-    if x <= t:
+    if x <= 0:
         y = x ** 3 + math.exp(-1.3 * x)
         return f"x = {x}, y1 = {y:.6f}"
     
     # Інтервал 2: 0 < x < 0.5
-    elif t < x < (0.5 - t):
+    elif 0 < x < 0.5:
         y = math.exp(x) * math.sin(x) + 7.3
         return f"x = {x}, y2 = {y:.6f}"
     
     # Інтервал 3: 0.5 <= x < 1.4
-    elif (0.5 - t) <= x < (1.4 - t):
+    elif 0.5 <= x < 1.4:
         # Перевірка cos(x) != 0 для tan(x)
         if abs(math.cos(x)) > t:
             y = math.tan(x) / math.sqrt(5 + x * x)
@@ -33,7 +33,7 @@ def calculate_variant4(x):
             return "Порушено ОДЗ: cos(x) = 0, tan(x) не визначений"
     
     # Інтервал 4: x > 1.7
-    elif x > (1.7 + t):
+    elif x > 1.7:
         denominator = 11 * math.pi - 0.5 * x * x
         
         # Перевірка ділення на нуль
@@ -42,6 +42,7 @@ def calculate_variant4(x):
             return f"x = {x}, y4 = {y:.6f}"
         else:
             return "Порушено ОДЗ: ділення на нуль"
+    return None
 
 
 # Тестові випадки з звіту

@@ -10,24 +10,19 @@ def calculate_variant6(x):
     t = 1e-9
     
     # Перевірка чи x = 0 (невизначена точка)
-    if abs(x) < t:
+    if x == 0:
         return "Функція не визначена в точці x = 0"
     # Перевірка чи x у невизначеному інтервалі (4; 4.2]
-    elif (4 - t) < x <= (4.2 + t):
+    elif 4 < x <= 4.2:
         return "Функція не визначена на інтервалі (4; 4.2]"
     
     # Інтервал 1: x <= -2
-    if x <= (-2 + t):
+    if x <= -2:
         radicand = x + 2
         
         # Перевірка radicand >= 0
-        if radicand > -t:
-            # Обробка випадку radicand = 0
-            if radicand < t:
-                sqrt_part = 0
-            else:
-                sqrt_part = math.sqrt(radicand)
-            
+        if radicand >= 0:
+            sqrt_part = math.sqrt(radicand)
             power_part = 5 ** (-math.sin(x))
             y = power_part * sqrt_part
             return f"x = {x}, y1 = {y:.6f}"
@@ -35,7 +30,7 @@ def calculate_variant6(x):
             return "Порушено ОДЗ: вираз під коренем від'ємний"
     
     # Інтервал 2: -2 < x < 0
-    elif (-2 + t) < x < -t:
+    elif -2 < x < 0:
         # Перевірка sin(x) != 0 для котангенса
         if abs(math.sin(x)) > t:
             cotangent = math.cos(x) / math.sin(x)
@@ -46,13 +41,13 @@ def calculate_variant6(x):
             return "Порушено ОДЗ: sin(x) = 0, котангенс не визначений"
     
     # Інтервал 3: 0 < x <= 4
-    elif t < x <= (4 - t):
+    elif 0 < x <= 4:
         # Корінь 6-го степеня від x + додатково 0.628x
         y = x ** (1.0 / 6.0) + 0.628 * x
         return f"x = {x}, y3 = {y:.6f}"
     
     # Інтервал 4: x > 4.2
-    elif x > (4.2 + t):
+    elif x > 4.2:
         # Перевірка sin(x) != 0 для котангенса
         if abs(math.sin(x)) > t:
             cotangent = math.cos(x) / math.sin(x)
@@ -60,6 +55,7 @@ def calculate_variant6(x):
             return f"x = {x}, y4 = {y:.6f}"
         else:
             return "Порушено ОДЗ: sin(x) = 0, котангенс не визначений"
+    return None
 
 
 # Тестові випадки з звіту
