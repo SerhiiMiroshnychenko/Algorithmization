@@ -3,7 +3,7 @@
 Автоматична перевірка всіх тестових випадків
 """
 
-import math
+from math import isclose, sin, cos, exp
 
 def calculate_variant5(x):
     """Обчислення функції варіанту 5 з використанням match-case"""
@@ -22,9 +22,9 @@ def calculate_variant5(x):
         case _ if x < -2:
             # Інтервал 1: x < -2
             # Перевірка sin(x) != 0 для котангенса
-            if not math.isclose(math.sin(x), 0.0, abs_tol=t):
-                cotangent = math.cos(x) / math.sin(x)
-                y = cotangent - math.exp(x * x)
+            if not isclose(sin(x), 0.0, abs_tol=t):
+                cotangent = cos(x) / sin(x)
+                y = cotangent - exp(x * x)
                 return f"x = {x}, y1 = {y:.6f}"
             else:
                 return "Порушено ОДЗ: sin(x) = 0, котангенс не визначений"
@@ -32,18 +32,18 @@ def calculate_variant5(x):
         case _ if -2 < x <= 0:
             # Інтервал 2: -2 < x <= 0
             # cos(x) - 1.1 завжди != 0, оскільки -1 <= cos(x) <= 1
-            denominator = math.cos(x) - 1.1
+            denominator = cos(x) - 1.1
             y = 3 / denominator
             return f"x = {x}, y2 = {y:.6f}"
 
         case _ if 0 < x < 2:
             # Інтервал 3: 0 < x < 2
-            y = (x ** 5) * math.sin(x) + 0.5
+            y = (x ** 5) * sin(x) + 0.5
             return f"x = {x}, y3 = {y:.6f}"
 
         case _ if x >= 2.2:
             # Інтервал 4: x >= 2.2
-            radicand = math.cos(x) ** 2
+            radicand = cos(x) ** 2
             # Кубічний корінь завжди визначений
             y = radicand ** (1.0 / 3.0)
             return f"x = {x}, y4 = {y:.6f}"
